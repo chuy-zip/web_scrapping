@@ -86,7 +86,7 @@ entrada = list(html)
 print(len(entrada))
 
 # lista donde se van a guardar las propiedades. Al final la lista debería tener las propiedades en el siguiente orden
-# [img1,titulo1,precio1,img2,titulo2,precio3,....]
+# [img1,titulo1,precio1,img2,titulo2,precio2,....]
 prop_list = []
 
 while lexema != "eof":
