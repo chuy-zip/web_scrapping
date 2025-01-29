@@ -67,11 +67,20 @@ def extraer_productos(html_line, prop_list: list[str]):
        prop_list.append(titulo[0])
 
 
-# Exportar resultados a CSV
+# Reestructurar la lista de propiedades en una lista de productos con el orden correcto
+def organizar_productos(prop_list):
+    productos = []
+    for i in range(0, len(prop_list), 3):  
+        if i + 2 < len(prop_list): 
+            productos.append([prop_list[i + 2], prop_list[i], prop_list[i + 1]])  # [Titulo, Imagen, Precio]
+    return productos
+
+
+# Exportar productos a CSV
 def exportar_csv(productos, archivo_salida):
     with open(archivo_salida, "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(['Nombre del Producto', 'URL de la Imagen'])
+        writer.writerow(['Nombre del Producto', 'URL de la Imagen', 'Precio'])
         writer.writerows(productos)
 
 html = cargar_html("test.html")
@@ -96,6 +105,11 @@ while lexema != "eof":
 
    inicio += avance
 
-print("\nFinal: ", prop_list)
+productos = organizar_productos(prop_list)
+exportar_csv(productos, "productos.csv")
+
+print("\nExtracción completa. Datos guardados en 'productos.csv'.")
+
+#print("\nFinal: ", prop_list)
 
 #Ahora hace falta la parte del ouput
